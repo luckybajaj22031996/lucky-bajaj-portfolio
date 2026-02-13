@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lucky Bajaj — Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0f0f; --ink-soft: #555; --ink-muted: #999;
+    --bg: #fafaf8; --bg-card: #ffffff; --border: #e8e5e0;
+    --accent-warm: #c8602a; --accent-light: #f5f0eb;
+    --green: #2d6a4f; --green-bg: #eaf4ef; --tag-bg: #f0ede8;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --radius: 16px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 20px rgba(0,0,0,0.07);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,250,248,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 40px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 0.85rem; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: #fff !important; padding: 8px 18px; border-radius: 100px; font-size: 0.82rem !important; font-weight: 500 !important; }
+  .nav-cta:hover { background: #333 !important; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 100px 0; }
+
+  /* Hero */
+  #hero { padding: 160px 0 120px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.7s ease forwards 0.1s; }
+  .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent-warm); }
+  h1.hero-name { font-family: var(--serif); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+  h1.hero-name em { font-style: italic; color: var(--accent-warm); }
+  .hero-tagline { font-size: 1.15rem; color: var(--ink-soft); font-weight: 300; max-width: 520px; line-height: 1.65; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.35s; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.45s; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--tag-bg); color: var(--ink-soft); font-size: 0.8rem; padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border); }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s ease forwards 0.55s; }
+  .btn-primary { background: var(--ink); color: #fff; padding: 14px 28px; border-radius: 100px; text-decoration: none; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; }
+  .btn-primary:hover { background: #2a2a2a; transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-secondary { background: transparent; color: var(--ink); padding: 14px 28px; border-radius: 100px; border: 1.5px solid var(--border); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.2s, transform 0.15s, background 0.2s; }
+  .btn-secondary:hover { border-color: var(--ink-soft); background: var(--tag-bg); transform: translateY(-2px); }
+
+  .section-header { margin-bottom: 56px; }
+  .section-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .section-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--accent-warm); }
+  h2.section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .section-subtitle { font-size: 1rem; color: var(--ink-soft); font-weight: 300; margin-top: 12px; max-width: 480px; }
+
+  /* About */
+  #about { background: var(--accent-light); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .about-bio p { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.75; font-weight: 300; margin-bottom: 20px; }
+  .about-bio p strong { color: var(--ink); font-weight: 500; }
+  .about-details { display: flex; flex-direction: column; gap: 20px; }
+  .detail-item { display: flex; align-items: flex-start; gap: 14px; }
+  .detail-icon { width: 40px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+  .detail-text { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
+  .detail-text strong { display: block; color: var(--ink); font-weight: 500; font-size: 0.95rem; margin-bottom: 2px; }
+
+  /* Experience */
+  .timeline { display: flex; flex-direction: column; gap: 2px; }
+  .exp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; transition: box-shadow 0.25s, transform 0.2s; }
+  .exp-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .exp-role { font-family: var(--serif); font-size: 1.2rem; color: var(--ink); margin-bottom: 4px; }
+  .exp-company { font-size: 0.88rem; color: var(--accent-warm); font-weight: 500; }
+  .exp-date { font-size: 0.78rem; color: var(--ink-muted); background: var(--tag-bg); padding: 5px 12px; border-radius: 100px; white-space: nowrap; border: 1px solid var(--border); }
+  .exp-bullets { margin-top: 16px; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .exp-bullets li { font-size: 0.9rem; color: var(--ink-soft); font-weight: 300; padding-left: 16px; position: relative; line-height: 1.55; }
+  .exp-bullets li::before { content: '–'; position: absolute; left: 0; color: var(--accent-warm); }
+  .exp-divider { width: 1px; height: 24px; background: var(--border); margin: 0 auto; }
+  .edu-row { display: flex; align-items: center; gap: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 32px; }
+  .edu-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .edu-degree { font-weight: 500; color: var(--ink); font-size: 0.95rem; }
+  .edu-school { font-size: 0.85rem; color: var(--ink-soft); margin-top: 2px; }
+  .edu-year { font-size: 0.78rem; color: var(--ink-muted); margin-left: auto; }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.25s, transform 0.2s; cursor: pointer; }
+  .project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .project-card-header { padding: 32px 32px 0; display: flex; align-items: flex-start; justify-content: space-between; }
+  .project-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+  .project-card-body { padding: 0 32px 32px; }
+  .project-type { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+  .project-name { font-family: var(--serif); font-size: 1.5rem; line-height: 1.15; margin-bottom: 10px; }
+  .project-desc { font-size: 0.88rem; color: var(--ink-soft); font-weight: 300; line-height: 1.65; margin-bottom: 20px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .project-tag { font-size: 0.75rem; color: var(--ink-soft); background: var(--tag-bg); padding: 4px 12px; border-radius: 100px; border: 1px solid var(--border); }
+  .project-outcomes { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .outcome-item { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--green); }
+  .outcome-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(15,15,15,0.5); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+  .modal-box { background: var(--bg-card); border-radius: 24px; width: 100%; max-width: 760px; max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: scaleIn 0.3s ease; }
+  .modal-box::-webkit-scrollbar { width: 5px; } .modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .modal-header { padding: 28px 32px 20px; display: flex; align-items: flex-start; justify-content: space-between; position: sticky; top: 0; background: var(--bg-card); z-index: 1; border-bottom: 1px solid var(--border); }
+  .modal-close { width: 36px; height: 36px; border-radius: 50%; background: var(--tag-bg); border: 1px solid var(--border); cursor: pointer; font-size: 1rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .modal-close:hover { background: var(--border); }
+  .modal-content { padding: 28px 32px 36px; }
+  .modal-section { margin-bottom: 30px; }
+  .modal-section-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .modal-section p { font-size: 0.91rem; color: var(--ink-soft); line-height: 1.72; font-weight: 300; margin-bottom: 10px; }
+  .modal-section p strong { color: var(--ink); font-weight: 500; }
+  .modal-section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .modal-section ul li { font-size: 0.9rem; color: var(--ink-soft); padding-left: 16px; position: relative; line-height: 1.55; font-weight: 300; }
+  .modal-section ul li::before { content: '–'; position: absolute; left: 0; color: var(--accent-warm); }
+
+  .personas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .persona-card { background: var(--accent-light); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .persona-emoji { font-size: 1.5rem; margin-bottom: 8px; }
+  .persona-name { font-weight: 600; font-size: 0.88rem; color: var(--ink); margin-bottom: 2px; }
+  .persona-role { font-size: 0.75rem; color: var(--accent-warm); margin-bottom: 8px; }
+  .persona-need { font-size: 0.79rem; color: var(--ink-soft); line-height: 1.45; font-weight: 300; }
+  .persona-pain { font-size: 0.77rem; color: #b04020; margin-top: 7px; font-style: italic; border-top: 1px solid var(--border); padding-top: 7px; }
+
+  .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+  .metric-box { background: var(--green-bg); border: 1px solid #b7dbc9; border-radius: 12px; padding: 14px; text-align: center; }
+  .metric-box.amber { background: #fff8ee; border-color: #f0d8a8; }
+  .metric-num { font-family: var(--serif); font-size: 1.35rem; color: var(--green); line-height: 1; margin-bottom: 4px; }
+  .metric-box.amber .metric-num { color: #a06010; }
+  .metric-label { font-size: 0.72rem; color: var(--ink-soft); line-height: 1.3; }
+
+  .process-steps { display: flex; flex-direction: column; gap: 12px; }
+  .process-step { display: flex; align-items: flex-start; gap: 14px; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.78rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-title { font-weight: 500; color: var(--ink); font-size: 0.9rem; margin-bottom: 2px; }
+  .step-desc { font-size: 0.83rem; color: var(--ink-soft); font-weight: 300; line-height: 1.5; }
+
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feature-item { background: var(--accent-light); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--border); }
+  .feature-item strong { display: block; font-size: 0.84rem; color: var(--ink); margin-bottom: 3px; }
+  .feature-item span { font-size: 0.78rem; color: var(--ink-soft); font-weight: 300; }
+
+  /* Blog */
+  #blog { background: var(--accent-light); }
+  .blog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .article-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-decoration: none; display: block; transition: box-shadow 0.25s, transform 0.2s; }
+  .article-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+  .article-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-warm); margin-bottom: 10px; }
+  .article-title { font-family: var(--serif); font-size: 1.15rem; line-height: 1.3; color: var(--ink); margin-bottom: 10px; }
+  .article-excerpt { font-size: 0.83rem; color: var(--ink-soft); font-weight: 300; line-height: 1.6; margin-bottom: 16px; }
+  .article-meta { display: flex; align-items: center; justify-content: space-between; }
+  .article-read { font-size: 0.78rem; color: var(--ink-muted); }
+  .article-arrow { font-size: 0.9rem; color: var(--accent-warm); }
+  .blog-cta-row { display: flex; align-items: center; gap: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 28px; }
+  .medium-m { width: 44px; height: 44px; border-radius: 10px; background: var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.3rem; color: #fff; flex-shrink: 0; }
+  .blog-cta-text { flex: 1; font-size: 0.88rem; color: var(--ink-soft); font-weight: 300; }
+  .blog-cta-text strong { color: var(--ink); }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .skill-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: box-shadow 0.2s, transform 0.2s; }
+  .skill-group:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .skill-group-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .skill-group-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .skill-group-title { font-weight: 500; color: var(--ink); font-size: 0.92rem; }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pill { font-size: 0.78rem; color: var(--ink-soft); background: var(--tag-bg); padding: 5px 12px; border-radius: 100px; border: 1px solid var(--border); }
+  .certs-row { display: flex; gap: 20px; margin-top: 24px; }
+  .cert-badge { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; display: flex; align-items: center; gap: 14px; }
+  .cert-icon { font-size: 1.6rem; }
+  .cert-name { font-weight: 500; color: var(--ink); font-size: 0.9rem; }
+  .cert-org { font-size: 0.8rem; color: var(--ink-muted); margin-top: 2px; }
+
+  /* Contact */
+  #contact { background: var(--ink); color: #fff; }
+  #contact .section-eyebrow { color: #c8a882; } #contact .section-eyebrow::after { background: #c8a882; }
+  #contact h2.section-title { color: #fff; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .contact-lead { font-size: 1.05rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.75; margin-bottom: 36px; }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px 20px; text-decoration: none; color: rgba(255,255,255,0.8); font-size: 0.9rem; transition: background 0.2s, transform 0.15s; }
+  .contact-link:hover { background: rgba(255,255,255,0.1); transform: translateX(4px); }
+  .contact-link-icon { font-size: 1.1rem; }
+  .contact-link strong { display: block; color: #fff; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+  .form-group input, .form-group textarea { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; color: #fff; font-family: var(--sans); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus, .form-group textarea:focus { border-color: rgba(255,255,255,0.4); }
+  .form-group textarea { resize: none; height: 120px; }
+  .form-submit { background: #fff; color: var(--ink); border: none; border-radius: 100px; padding: 14px 28px; font-family: var(--sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; align-self: flex-start; transition: background 0.2s, transform 0.15s; }
+  .form-submit:hover { background: #eee; transform: translateY(-2px); }
+  .form-note { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+  footer { background: #080808; padding: 24px 32px; text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.2); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    .container { padding: 0 20px; } section { padding: 72px 0; } #hero { padding: 100px 0 80px; }
+    .about-grid, .contact-grid, .projects-grid, .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .certs-row { flex-direction: column; }
+    .features-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .blog-cta-row { flex-direction: column; }
+    .edu-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Lucky Bajaj</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-eyebrow">Product Manager · Mumbai, India</div>
+    <h1 class="hero-name">Lucky<br /><em>Bajaj</em></h1>
+    <p class="hero-tagline">8+ years turning ambiguous problems into products people actually use — across insurance, healthcare, and enterprise SaaS.</p>
+    <div class="hero-chips">
+      <span class="chip">🛡️ Insurance Platforms</span>
+      <span class="chip">🏥 Healthcare SaaS</span>
+      <span class="chip">🤖 AI Products</span>
+      <span class="chip">📊 Data-Driven PM</span>
+      <span class="chip">⚡ 0→1 Builder</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Case Studies ↓</a>
+      <a href="Lucky_Bajaj_Resume_PM_Focused_2026.pdf" download class="btn-secondary">↓ Download Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">About</div>
+      <h2 class="section-title">The person behind the product</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-bio reveal">
+        <p>I'm a <strong>product-focused professional</strong> who has spent 8+ years obsessing over the space between business intent and user need. I've led product strategy and delivery for India's first omnichannel insurance sales platform, B2B healthcare SaaS tools, and pharma analytics platforms.</p>
+        <p>My superpower is <strong>translating ambiguity into clarity</strong> — whether that's a stakeholder workshop, a prioritized backlog, or a 0→1 product shipped end-to-end. I combine structured PM thinking with technical fluency and domain depth.</p>
+        <p>Outside of work, I build personal data products, write about the craft of PM on Medium, and obsess over how everyday decisions can be improved with the right information at the right time.</p>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://www.linkedin.com/in/lucky-bajaj/" target="_blank" class="btn-primary">LinkedIn ↗</a>
+          <a href="Lucky_Bajaj_Resume_PM_Focused_2026.pdf" download class="btn-secondary">↓ Resume</a>
+        </div>
+      </div>
+      <div class="about-details reveal">
+        <div class="detail-item"><div class="detail-icon">📍</div><div class="detail-text"><strong>Location</strong>Mumbai, India · Open to remote & hybrid</div></div>
+        <div class="detail-item"><div class="detail-icon">🏢</div><div class="detail-text"><strong>Currently</strong>Senior Consultant (Product Management) at ThoughtWorks</div></div>
+        <div class="detail-item"><div class="detail-icon">🎯</div><div class="detail-text"><strong>Focus Areas</strong>Product Strategy · Roadmap Execution · Cross-functional Delivery · 0→1 Products</div></div>
+        <div class="detail-item"><div class="detail-icon">🎓</div><div class="detail-text"><strong>Education</strong>B.E. Information Technology · Govt. College of Engineering, Karad</div></div>
+        <div class="detail-item"><div class="detail-icon">✉️</div><div class="detail-text"><strong>Email</strong>imluckybajaj@gmail.com</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Experience</div>
+      <h2 class="section-title">Where I've made impact</h2>
+      <p class="section-subtitle">A track record of shipping products and leading teams across high-growth environments.</p>
+    </div>
+    <div class="timeline">
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div><div class="exp-role">Senior Consultant — Product Management</div><div class="exp-company">ThoughtWorks</div></div>
+          <div class="exp-date">Jul 2024 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Leading product strategy for <strong>India's first omnichannel insurance sales platform</strong> — end-to-end lifecycle from discovery to delivery.</li>
+          <li>Eliminated multiple manual workflows, reducing processing effort by <strong>~30%</strong> and cutting policy issuance turnaround from hours to minutes.</li>
+          <li>Managing 2 cross-functional squads (16 members) across web and backend, owning backlog, sprint planning, and release readiness.</li>
+          <li>Partnered with tech leads to define scalable architecture and digital journeys across front-office and backend channels.</li>
+        </ul>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div><div class="exp-role">Senior Business Analyst — Product Delivery</div><div class="exp-company">Quantiphi Analytics</div></div>
+          <div class="exp-date">Dec 2021 – Jul 2024</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Owned full product lifecycle for multiple <strong>B2B SaaS platforms</strong>; translated business objectives into phased roadmaps using value vs. effort frameworks.</li>
+          <li>Led teams of up to 12 members on projects exceeding <strong>$1M in value</strong>; served as primary client stakeholder across product, engineering, and analytics.</li>
+          <li>Leveraged dashboards and usage metrics to inform prioritization and track feature adoption throughout.</li>
+        </ul>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div><div class="exp-role">Senior Business Analyst — Product</div><div class="exp-company">Radix Health (Healthcare SaaS)</div></div>
+          <div class="exp-date">Jul 2020 – Dec 2021</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Worked on an appointment scheduling platform serving dual personas: <strong>patients and clinic staff</strong> — improving UX across both.</li>
+          <li>Designed user workflows with product and engineering; drove feature adoption through SQL-based analytics and operational insights.</li>
+        </ul>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div><div class="exp-role">Business Technology Analyst</div><div class="exp-company">ZS Associates (Management Consulting)</div></div>
+          <div class="exp-date">Jan 2018 – Jul 2020</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Delivered analytics and sales enablement platforms for major <strong>US pharmaceutical companies</strong>, optimising physician targeting and territory planning.</li>
+          <li>Built foundations in structured problem-solving, stakeholder communication, and analytical thinking.</li>
+        </ul>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="edu-row reveal">
+        <div class="edu-icon">🎓</div>
+        <div><div class="edu-degree">Bachelor of Engineering — Information Technology</div><div class="edu-school">Government College of Engineering, Karad</div></div>
+        <div class="edu-year">2013 – 2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Case Studies & Projects</div>
+      <h2 class="section-title">Products I've built & shipped</h2>
+      <p class="section-subtitle">Personal projects that demonstrate end-to-end PM thinking — from problem framing to execution. Click to explore each in depth.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal" onclick="openModal('food')">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:#fff3e0;">🥗</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-muted);margin-top:6px"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+        <div class="project-card-body">
+          <div class="project-type">AI · Consumer Health · 0→1</div>
+          <div class="project-name">Smart Food Label Checker</div>
+          <div class="project-desc">AI-powered assistant that converts complex nutrition labels into clear, decision-ready health guidance in seconds — replacing numbers with actual decisions.</div>
+          <div class="project-tags"><span class="project-tag">AI / LLM</span><span class="project-tag">Computer Vision</span><span class="project-tag">Consumer Health</span><span class="project-tag">Mobile-First</span></div>
+          <div class="project-outcomes">
+            <div class="outcome-item"><div class="outcome-dot"></div>0–100 health score from image upload</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>Category-aware, personalized evaluation</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>Reduces decision fatigue at point of purchase</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal" onclick="openModal('commute')">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:#e3f2fd;">🚗</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-muted);margin-top:6px"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+        <div class="project-card-body">
+          <div class="project-type">Data Engineering · Personal Analytics</div>
+          <div class="project-name">Commute Optimization System</div>
+          <div class="project-desc">An automated data pipeline that captures real-time Mumbai traffic patterns and surfaces optimal departure windows — turning daily frustration into actionable intelligence.</div>
+          <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Google Maps API</span><span class="project-tag">GitHub Actions</span><span class="project-tag">Data Analysis</span></div>
+          <div class="project-outcomes">
+            <div class="outcome-item"><div class="outcome-dot"></div>Fully automated data collection pipeline</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>Historical dataset — Powai ↔ Andheri route</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>Identified peak vs. off-peak variability patterns</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal: Food Label -->
+<div class="modal-overlay" id="modal-food" onclick="closeOnOverlay(event,'food')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;">🥗</span>
+        <div>
+          <div style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);">Smart Food Label Checker</div>
+          <div style="font-size:0.77rem;color:var(--ink-muted);margin-top:2px;">AI · Consumer Health · Personal Project · 0→1</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('food')">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-section">
+        <div class="modal-section-title">Problem Statement</div>
+        <p>Nutrition labels are <strong>information-heavy but decision-poor</strong>. Consumers face a wall of numbers — calories, macros, ingredient lists — with no clear signal on whether a product is suitable for them. The gap isn't data; it's interpretation. Even health-conscious shoppers hesitate at the shelf because translating nutritional data into a personal judgement call requires knowledge most people don't have.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">User Personas</div>
+        <div class="personas-grid">
+          <div class="persona-card">
+            <div class="persona-emoji">🏋️</div>
+            <div class="persona-name">Fitness Farhan</div>
+            <div class="persona-role">Gym-goer, 28</div>
+            <div class="persona-need">Tracks macros, wants quick protein-to-calorie ratios without reading every label</div>
+            <div class="persona-pain">"I can't tell if this is actually high-protein or just marketed that way."</div>
+          </div>
+          <div class="persona-card">
+            <div class="persona-emoji">👩‍💼</div>
+            <div class="persona-name">Busy Priya</div>
+            <div class="persona-role">Working professional, 34</div>
+            <div class="persona-need">Wants fast, trustworthy decisions while grocery shopping with limited time</div>
+            <div class="persona-pain">"I have 2 minutes in the aisle — I just need a yes or no."</div>
+          </div>
+          <div class="persona-card">
+            <div class="persona-emoji">🧓</div>
+            <div class="persona-name">Health-aware Meena</div>
+            <div class="persona-role">Parent, 45 — managing family diet</div>
+            <div class="persona-need">Monitoring sodium & sugar for a family member with diabetes</div>
+            <div class="persona-pain">"I never know which number to look at first."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Solution & How It Works</div>
+        <p>Smart Food Label Checker uses <strong>computer vision + AI reasoning</strong> to extract nutritional data from a label photo and deliver a structured health verdict in under 5 seconds.</p>
+        <div class="process-steps" style="margin-top:14px;">
+          <div class="process-step"><div class="step-num">1</div><div><div class="step-title">Image Upload</div><div class="step-desc">User photographs the nutrition label or ingredients panel on their phone</div></div></div>
+          <div class="process-step"><div class="step-num">2</div><div><div class="step-title">AI Extraction</div><div class="step-desc">Model identifies and structures nutritional values and ingredient signals from the photo</div></div></div>
+          <div class="process-step"><div class="step-num">3</div><div><div class="step-title">Health Scoring</div><div class="step-desc">Prompt-based framework evaluates macros, sugar quality, sodium, fiber, protein, and processing — category-aware (snack vs. cereal vs. beverage)</div></div></div>
+          <div class="process-step"><div class="step-num">4</div><div><div class="step-title">Personalized Output</div><div class="step-desc">Score adjusts for user health inputs (BMI, goals); delivers verdict + key health flags + plain-language recommendations</div></div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Success Metrics (Hypothetical Targets)</div>
+        <div class="metrics-row">
+          <div class="metric-box"><div class="metric-num">&lt;5s</div><div class="metric-label">Time to verdict</div></div>
+          <div class="metric-box amber"><div class="metric-num">85%</div><div class="metric-label">Score accuracy vs. dietician review</div></div>
+          <div class="metric-box"><div class="metric-num">70%</div><div class="metric-label">D7 retention target</div></div>
+          <div class="metric-box amber"><div class="metric-num">4.2★</div><div class="metric-label">Target user satisfaction</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Core Features</div>
+        <div class="features-grid">
+          <div class="feature-item"><strong>🔍 AI Label Interpretation</strong><span>Reads nutrition panels & ingredient lists from photos</span></div>
+          <div class="feature-item"><strong>📊 Health Score (0–100)</strong><span>One comparable metric across all product categories</span></div>
+          <div class="feature-item"><strong>🚦 Traffic-Light Verdict</strong><span>Instant visual pass/caution/avoid indication</span></div>
+          <div class="feature-item"><strong>⚠️ Key Health Flags</strong><span>Excess sugar, high sodium, low fiber, poor protein</span></div>
+          <div class="feature-item"><strong>🎯 Personalized Scoring</strong><span>Adapts to user health inputs and stated goals</span></div>
+          <div class="feature-item"><strong>🗂️ Category-Aware Analysis</strong><span>Realistic benchmarks per product type</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Key Design Decisions & Tradeoffs</div>
+        <p><strong>Prompt-based scoring over rigid rules:</strong> Rather than fixed thresholds (e.g. "sugar &gt; 10g = bad"), the product uses AI-guided reasoning — enabling nuanced trade-offs like high fat but high protein in a nut bar. This sacrifices some consistency for realistic, contextual judgement.</p>
+        <p><strong>Mobile-first, minimal inputs:</strong> Deliberate choice to require zero mandatory inputs at launch. Personalization is opt-in. This reduces friction at first use, with the tradeoff of less tailored early scores — acceptable given the discovery goal.</p>
+        <p><strong>Category-awareness over universal scoring:</strong> A 5g sugar biscuit is very different from a 5g sugar fruit — context-aware judgement prevents misleading verdicts, though it adds prompt complexity.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Roadmap</div>
+        <ul>
+          <li><strong>Phase 1 (MVP):</strong> Image upload → AI extraction → health score + verdict display</li>
+          <li><strong>Phase 2:</strong> Barcode scanning, alternative product suggestions</li>
+          <li><strong>Phase 3:</strong> Grocery basket health analysis, dietary pattern tracking</li>
+          <li><strong>Phase 4:</strong> Integration with fitness apps (MyFitnessPal, Apple Health)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Commute -->
+<div class="modal-overlay" id="modal-commute" onclick="closeOnOverlay(event,'commute')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;">🚗</span>
+        <div>
+          <div style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);">Commute Optimization System</div>
+          <div style="font-size:0.77rem;color:var(--ink-muted);margin-top:2px;">Data Engineering · Personal Analytics · Powai ↔ Andheri, Mumbai</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('commute')">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-section">
+        <div class="modal-section-title">Problem Statement</div>
+        <p>My Powai ↔ Andheri commute varied by <strong>30–40 minutes</strong> depending on departure time, yet every decision was based on intuition. Without historical data, it was impossible to distinguish real traffic patterns from perceived randomness — and every suboptimal departure meant avoidable time lost.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">User Personas</div>
+        <div class="personas-grid" style="grid-template-columns:1fr 1fr;">
+          <div class="persona-card">
+            <div class="persona-emoji">🧑‍💻</div>
+            <div class="persona-name">Lucky — Primary User</div>
+            <div class="persona-role">Daily commuter, consultant</div>
+            <div class="persona-need">Wants to leave at the optimal time without manually checking maps each day</div>
+            <div class="persona-pain">"I'm making a 45-min vs 20-min decision with zero data."</div>
+          </div>
+          <div class="persona-card">
+            <div class="persona-emoji">🏙️</div>
+            <div class="persona-name">Urban Commuter — Extensible</div>
+            <div class="persona-role">Any high-traffic city resident</div>
+            <div class="persona-need">Reusable framework for any route with significant travel-time variability</div>
+            <div class="persona-pain">"Google Maps tells me current duration, not the best time to leave."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Hypothesis</div>
+        <p>"If I collect enough timestamped travel duration data across different departure windows, I can identify statistically reliable patterns that reveal an optimal departure window — reducing average commute time without changing the route."</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Solution Architecture</div>
+        <div class="process-steps">
+          <div class="process-step"><div class="step-num">1</div><div><div class="step-title">Data Acquisition</div><div class="step-desc">Google Maps Directions API — queried <code style="background:var(--tag-bg);padding:1px 5px;border-radius:4px;font-size:0.8rem;">duration_in_traffic</code> with live departure timestamps for both route directions</div></div></div>
+          <div class="process-step"><div class="step-num">2</div><div><div class="step-title">Automation Pipeline</div><div class="step-desc">Python script fetches at fixed intervals, converts to IST, appends to CSV — runs via GitHub Actions (cloud) and cron jobs (local) with zero manual intervention</div></div></div>
+          <div class="process-step"><div class="step-num">3</div><div><div class="step-title">Analysis Layer</div><div class="step-desc">Trend visualization, time-window filtering, peak vs. off-peak comparison, and directional pattern analysis</div></div></div>
+          <div class="process-step"><div class="step-num">4</div><div><div class="step-title">Decision Output</div><div class="step-desc">Identify departure windows with consistently lowest travel duration — targeted for eventual push alerts</div></div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Outcomes</div>
+        <div class="metrics-row">
+          <div class="metric-box"><div class="metric-num">✓</div><div class="metric-label">Automated pipeline built & running</div></div>
+          <div class="metric-box amber"><div class="metric-num">2</div><div class="metric-label">Route directions tracked</div></div>
+          <div class="metric-box"><div class="metric-num">0</div><div class="metric-label">Manual data entry required</div></div>
+          <div class="metric-box amber"><div class="metric-num">∞</div><div class="metric-label">Reusable for any city/route</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Key Learnings</div>
+        <ul>
+          <li><strong>Traffic variability is quantifiable:</strong> Duration swings were larger and more predictable than intuition suggested</li>
+          <li><strong>Directionality matters:</strong> Powai→Andheri and Andheri→Powai have meaningfully different congestion fingerprints by hour</li>
+          <li><strong>Small datasets mislead:</strong> Early patterns required weeks of validation before acting — a core PM lesson about premature conclusions</li>
+          <li><strong>Automation removes behavioural bias:</strong> Scheduled collection removes the human tendency to only check when it feels convenient</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">PM Skills Demonstrated</div>
+        <div class="features-grid">
+          <div class="feature-item"><strong>🎯 Problem Framing</strong><span>Personal frustration → testable hypothesis → system</span></div>
+          <div class="feature-item"><strong>📊 Data Strategy</strong><span>Designed collection pipeline before jumping to analysis</span></div>
+          <div class="feature-item"><strong>🔧 Technical Fluency</strong><span>API integration, Python, cron & GitHub Actions</span></div>
+          <div class="feature-item"><strong>🔁 Iteration Mindset</strong><span>Resisted premature conclusions; waited for statistical reliability</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Roadmap</div>
+        <ul>
+          <li><strong>Phase 1 (Done):</strong> Automated logging pipeline + historical CSV dataset</li>
+          <li><strong>Phase 2:</strong> Interactive dashboard (Streamlit or similar) replacing manual CSV review</li>
+          <li><strong>Phase 3:</strong> Predictive model with confidence intervals per departure window</li>
+          <li><strong>Phase 4:</strong> "Best time to leave" push alert with weather & event signal enrichment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Blog -->
+<section id="blog">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Blog & Writing</div>
+      <h2 class="section-title">Thinking in public</h2>
+      <p class="section-subtitle">Essays on product management, interaction design, and the craft of building things that last.</p>
+    </div>
+    <div class="blog-grid">
+      <a href="https://medium.com/@imluckybajaj/the-best-feature-is-the-one-you-never-touch-8dd129f30a0b" target="_blank" class="article-card reveal">
+        <div class="article-tag">Product Design · Feb 2026 · 6 min read</div>
+        <div class="article-title">The Best Feature Is the One You Never Touch</div>
+        <div class="article-excerpt">India keeps building this lesson into its products — from Vande Bharat to UPI. What separates products that survive at scale from ones that fall apart? It's not ambition. It's how much they ask of their users.</div>
+        <div class="article-meta"><span class="article-read">Interaction design · India at scale · PM thinking</span><span class="article-arrow">↗</span></div>
+      </a>
+      <a href="https://medium.com/@imluckybajaj/even-apple-trips-shared-lessons-from-the-messy-reality-of-software-delivery-345be190a570" target="_blank" class="article-card reveal">
+        <div class="article-tag">Product Delivery · Jul 2025 · 3 min read</div>
+        <div class="article-title">Even Apple Trips: Lessons from the Messy Reality of Software Delivery</div>
+        <div class="article-excerpt">When even Apple announces big and delivers late, it says something about the nature of product work. On iterative delivery, the courage to ship imperfect things, and why adaptability beats perfection.</div>
+        <div class="article-meta"><span class="article-read">Delivery · Iteration · Agile</span><span class="article-arrow">↗</span></div>
+      </a>
+    </div>
+    <div class="blog-cta-row reveal">
+      <div class="medium-m">M</div>
+      <div class="blog-cta-text"><strong>More on Medium</strong> — I write regularly about PM craft, product thinking, and building things that matter.</div>
+      <a href="https://medium.com/@imluckybajaj" target="_blank" class="btn-primary" style="flex-shrink:0;">All Articles ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Skills & Expertise</div>
+      <h2 class="section-title">The full toolkit</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <div class="skill-group-header"><div class="skill-group-icon">🎯</div><div class="skill-group-title">Product Management</div></div>
+        <div class="skill-items">
+          <span class="skill-pill">Product Discovery</span><span class="skill-pill">User Journey Mapping</span><span class="skill-pill">Roadmap Planning</span><span class="skill-pill">Backlog Prioritization</span><span class="skill-pill">RICE Framework</span><span class="skill-pill">Product Metrics & KPIs</span><span class="skill-pill">Stakeholder Management</span><span class="skill-pill">Agile / Scrum</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-header"><div class="skill-group-icon">🛠️</div><div class="skill-group-title">Tools & Technical</div></div>
+        <div class="skill-items">
+          <span class="skill-pill">JIRA</span><span class="skill-pill">Confluence</span><span class="skill-pill">Miro</span><span class="skill-pill">Figma</span><span class="skill-pill">Balsamiq</span><span class="skill-pill">SQL / PostgreSQL</span><span class="skill-pill">PowerBI</span><span class="skill-pill">MicroStrategy</span><span class="skill-pill">Python</span><span class="skill-pill">AWS</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-header"><div class="skill-group-icon">🏭</div><div class="skill-group-title">Domain Expertise</div></div>
+        <div class="skill-items">
+          <span class="skill-pill">Insurance Platforms</span><span class="skill-pill">Healthcare SaaS</span><span class="skill-pill">US Pharma SFE</span><span class="skill-pill">B2B Enterprise SaaS</span><span class="skill-pill">Policy Management</span><span class="skill-pill">Provider Workflows</span><span class="skill-pill">Analytics Platforms</span><span class="skill-pill">Sports Entertainment</span>
+        </div>
+      </div>
+    </div>
+    <div class="certs-row reveal">
+      <div class="cert-badge"><div class="cert-icon">☁️</div><div><div class="cert-name">AWS Certified Cloud Practitioner</div><div class="cert-org">Amazon Web Services</div></div></div>
+      <div class="cert-badge"><div class="cert-icon">🏅</div><div><div class="cert-name">Professional Scrum Master I (PSM-1)</div><div class="cert-org">Scrum.org</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Contact</div>
+      <h2 class="section-title">Let's build something together</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-lead">Open to conversations about exciting product roles, collaborations, or just trading notes on PM craft. Drop me a line.</p>
+        <div class="contact-links">
+          <a href="mailto:imluckybajaj@gmail.com" class="contact-link"><span class="contact-link-icon">✉️</span><div><strong>Email</strong>imluckybajaj@gmail.com</div></a>
+          <a href="https://www.linkedin.com/in/lucky-bajaj/" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span><div><strong>LinkedIn</strong>linkedin.com/in/lucky-bajaj</div></a>
+          <a href="https://medium.com/@imluckybajaj" target="_blank" class="contact-link"><span class="contact-link-icon">✍️</span><div><strong>Medium</strong>medium.com/@imluckybajaj</div></a>
+          <a href="Lucky_Bajaj_Resume_PM_Focused_2026.pdf" download class="contact-link"><span class="contact-link-icon">📄</span><div><strong>Resume</strong>Download PDF</div></a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required /></div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" required /></div>
+          </div>
+          <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?" /></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell me about the opportunity or your thoughts…" required></textarea></div>
+          <button type="submit" class="form-submit">Send Message →</button>
+          <p class="form-note" id="form-status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Lucky Bajaj · Product Manager · Mumbai, India</p>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); observer.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  function openModal(id) { document.getElementById('modal-' + id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { document.getElementById('modal-' + id).classList.remove('open'); document.body.style.overflow = ''; }
+  function closeOnOverlay(e, id) { if (e.target === e.currentTarget) closeModal(id); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.open').forEach(m => { m.classList.remove('open'); document.body.style.overflow = ''; }); }
+  });
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const s = document.getElementById('form-status');
+    s.textContent = "✓ Message sent! I'll get back to you soon.";
+    s.style.color = '#7ed8a4';
+    e.target.reset();
+    setTimeout(() => s.textContent = '', 5000);
+  }
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? '#0f0f0f' : ''; });
+  });
+</script>
+</body>
+</html>
