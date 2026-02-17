@@ -93,7 +93,7 @@
   .edu-year { font-size: 0.78rem; color: var(--ink-muted); margin-left: auto; }
 
   /* Projects */
-  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.25s, transform 0.2s; cursor: pointer; }
   .project-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
   .project-card-header { padding: 32px 32px 0; display: flex; align-items: flex-start; justify-content: space-between; }
@@ -218,7 +218,8 @@
     .container { padding: 0 20px; } section { padding: 72px 0; } #hero { padding: 100px 0 80px; }
     .hero-container { flex-direction: column-reverse; gap: 32px; }
     .hero-photo { width: 200px; height: 200px; align-self: center; }
-    .about-grid, .contact-grid, .projects-grid, .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+    .projects-grid, .blog-grid { grid-template-columns: 1fr; gap: 20px; }
     .skills-grid { grid-template-columns: 1fr; }
     .certs-row { flex-direction: column; }
     .features-grid { grid-template-columns: 1fr; }
@@ -402,9 +403,212 @@
           </div>
         </div>
       </div>
+      <div class="project-card reveal" onclick="openModal('insurance')">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:#f3e5f5;">🛡️</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-muted);margin-top:6px"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+        <div class="project-card-body">
+          <div class="project-type">Product Teardown · Competitive Analysis</div>
+          <div class="project-name">Insurance Platforms Compared</div>
+          <div class="project-desc">A PM-led teardown of three competing insurance distribution models — PhonePe, PolicyBazaar, and Ditto — across UX, strategy, business model, and user journeys.</div>
+          <div class="project-tags"><span class="project-tag">Competitive Analysis</span><span class="project-tag">InsurTech</span><span class="project-tag">UX Research</span><span class="project-tag">Product Strategy</span></div>
+          <div class="project-outcomes">
+            <div class="outcome-item"><div class="outcome-dot"></div>3 platforms · 9 dimensions compared</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>End-to-end user journey mapping</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>5 PM lessons distilled from analysis</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Modal: Insurance Comparison -->
+<div class="modal-overlay" id="modal-insurance" onclick="closeOnOverlay(event,'insurance')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;">🛡️</span>
+        <div>
+          <div style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);">Insurance Platforms Compared</div>
+          <div style="font-size:0.77rem;color:var(--ink-muted);margin-top:2px;">Product Teardown · PhonePe vs PolicyBazaar vs Ditto</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('insurance')">✕</button>
+    </div>
+    <div class="modal-content">
+
+      <div class="modal-section">
+        <div class="modal-section-title">Why This Analysis</div>
+        <p>Working in insurance at ThoughtWorks sparked a question: <strong>how are consumer-facing insurance platforms solving the same fundamental problem — getting people to buy insurance — through radically different product philosophies?</strong> I mapped three players who represent three distinct bets on how insurance distribution should work in India.</p>
+        <p>This teardown examines PhonePe (super-app, transaction-first), PolicyBazaar (comparison marketplace), and Ditto (advisory-first) — across UX, strategy, business model, and user journey depth.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">The Three Players</div>
+        <div class="personas-grid">
+          <div class="persona-card" style="border-top:3px solid #5f27cd;">
+            <div class="persona-emoji">📱</div>
+            <div class="persona-name" style="color:#5f27cd;">PhonePe</div>
+            <div class="persona-role">Super-app · Transaction-first</div>
+            <div class="persona-need">Insurance embedded in payments — buy in 7 steps, minimal friction, auto-renewal via UPI</div>
+            <div class="persona-pain">Bet: payments trust → financial products trust</div>
+          </div>
+          <div class="persona-card" style="border-top:3px solid #ed4c67;">
+            <div class="persona-emoji">🔍</div>
+            <div class="persona-name" style="color:#ed4c67;">PolicyBazaar</div>
+            <div class="persona-role">Marketplace · Comparison-first</div>
+            <div class="persona-need">40+ insurers, deep filters, price transparency — maximum choice for the informed buyer</div>
+            <div class="persona-pain">Bet: more options → better decisions → loyalty</div>
+          </div>
+          <div class="persona-card" style="border-top:3px solid #00a3a4;">
+            <div class="persona-emoji">🤝</div>
+            <div class="persona-name" style="color:#00a3a4;">Ditto</div>
+            <div class="persona-role">Advisory · Education-first</div>
+            <div class="persona-need">Human advisors, 30-min calls, curated 2-3 recommendations — depth over breadth</div>
+            <div class="persona-pain">Bet: understanding → trust → lifetime value</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">At a Glance — 9 Dimensions Compared</div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.83rem;">
+            <thead>
+              <tr style="background:var(--ink);color:#fff;">
+                <th style="padding:10px 14px;text-align:left;">Dimension</th>
+                <th style="padding:10px 14px;text-align:left;color:#b39ddb;">PhonePe</th>
+                <th style="padding:10px 14px;text-align:left;color:#f48fb1;">PolicyBazaar</th>
+                <th style="padding:10px 14px;text-align:left;color:#80deea;">Ditto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Core Philosophy</td>
+                <td style="padding:10px 14px;">Speed & Convenience</td>
+                <td style="padding:10px 14px;">Choice & Comparison</td>
+                <td style="padding:10px 14px;">Understanding & Advice</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Time to Quote</td>
+                <td style="padding:10px 14px;">~2 min (2 inputs)</td>
+                <td style="padding:10px 14px;">~3 min (4 inputs)</td>
+                <td style="padding:10px 14px;">N/A — needs advisor call</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Self-Service?</td>
+                <td style="padding:10px 14px;color:var(--green);">✓ Fully automated</td>
+                <td style="padding:10px 14px;color:var(--green);">✓ Fully automated</td>
+                <td style="padding:10px 14px;color:#b04020;">✗ Advisor required</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Insurer Options</td>
+                <td style="padding:10px 14px;">8–10 (curated)</td>
+                <td style="padding:10px 14px;">40+ (full market)</td>
+                <td style="padding:10px 14px;">2–3 (handpicked)</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Education Depth</td>
+                <td style="padding:10px 14px;color:#b04020;">Minimal</td>
+                <td style="padding:10px 14px;color:#a06010;">Moderate</td>
+                <td style="padding:10px 14px;color:var(--green);">Extensive</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Claims Support</td>
+                <td style="padding:10px 14px;">Insurer-led</td>
+                <td style="padding:10px 14px;">Support team</td>
+                <td style="padding:10px 14px;color:var(--green);">24/7 dedicated</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Trust Signal</td>
+                <td style="padding:10px 14px;">UPI brand reliability</td>
+                <td style="padding:10px 14px;">Price guarantee + CEO</td>
+                <td style="padding:10px 14px;">4.9★ + Zerodha backing</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Target User</td>
+                <td style="padding:10px 14px;">Mobile-native millennial</td>
+                <td style="padding:10px 14px;">Comparison shopper</td>
+                <td style="padding:10px 14px;">First-time buyer</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;font-weight:600;background:var(--tag-bg);">Scalability</td>
+                <td style="padding:10px 14px;color:var(--green);">Very High</td>
+                <td style="padding:10px 14px;color:var(--green);">High</td>
+                <td style="padding:10px 14px;color:#b04020;">Constrained by advisors</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">User Journey Comparison — Interactive</div>
+        <p style="margin-bottom:16px;">Click each platform to explore their user journey:</p>
+        <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+          <button onclick="window.showJourney('phonepe')" style="padding:10px 20px;border-radius:8px;border:2px solid #5f27cd;background:#fff;color:#5f27cd;font-weight:600;cursor:pointer;font-family:var(--sans);font-size:0.85rem;">📱 PhonePe (7 steps)</button>
+          <button onclick="window.showJourney('policybazaar')" style="padding:10px 20px;border-radius:8px;border:2px solid #ed4c67;background:#fff;color:#ed4c67;font-weight:600;cursor:pointer;font-family:var(--sans);font-size:0.85rem;">🔍 PolicyBazaar (12+ steps)</button>
+          <button onclick="window.showJourney('ditto')" style="padding:10px 20px;border-radius:8px;border:2px solid #00a3a4;background:#fff;color:#00a3a4;font-weight:600;cursor:pointer;font-family:var(--sans);font-size:0.85rem;">🤝 Ditto (3 + call)</button>
+        </div>
+        <div id="journey-phonepe" style="display:block;padding:20px;background:rgba(95,39,205,0.05);border-left:3px solid #5f27cd;border-radius:8px;">
+          <div style="font-weight:600;color:#5f27cd;margin-bottom:10px;">PhonePe — 7 Steps (Ruthlessly Streamlined)</div>
+          <div style="font-size:0.88rem;color:var(--ink-soft);line-height:1.65;">Entry → DOB + Income → Recommendations → Plan Selection → Add-ons → KYC → Payment. Every screen optimized for conversion over comprehension. The bet: mobile-native users value speed over education.</div>
+        </div>
+        <div id="journey-policybazaar" style="display:none;padding:20px;background:rgba(237,76,103,0.05);border-left:3px solid #ed4c67;border-radius:8px;">
+          <div style="font-weight:600;color:#ed4c67;margin-bottom:10px;">PolicyBazaar — 12+ Steps (Maximizing Basket Value)</div>
+          <div style="font-size:0.88rem;color:var(--ink-soft);line-height:1.65;">Extended form (pincode, city, marital status, existing policies) → deep comparison filters → multiple upsells (Limited Pay, spouse cover) → checkout. Optimized for transaction value through urgency and choice overload.</div>
+        </div>
+        <div id="journey-ditto" style="display:none;padding:20px;background:rgba(0,163,164,0.05);border-left:3px solid #00a3a4;border-radius:8px;">
+          <div style="font-weight:600;color:#00a3a4;margin-bottom:10px;">Ditto — 3 Steps + 30-Min Call (Deliberate Friction)</div>
+          <div style="font-size:0.88rem;color:var(--ink-soft);line-height:1.65;">Interest form → advisor scheduling → consultation → curated recommendation. Friction is a feature — signals that insurance deserves deliberation. Filters serious buyers, enables premium service model.</div>
+        </div>
+        <div style="margin-top:16px;padding:14px;background:var(--accent-light);border-radius:8px;font-size:0.85rem;color:var(--ink-soft);">
+          <strong style="color:var(--ink);">🔑 Key Insight:</strong> Step count is a strategic choice, not a UX failure. Each platform optimizes for different outcomes: conversion rate (PhonePe), basket size (PolicyBazaar), or decision quality (Ditto).
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Business Model Implications</div>
+        <p><strong>PhonePe:</strong> Low CAC (organic from payments app) + high volume + recurring AutoPay premiums. First-year commission (~₹16K on ₹52K premium) pays for acquisition. Trail commissions (years 2–30) are near-pure profit. Cross-sell funnel: insurance → investments → loans.</p>
+        <p><strong>PolicyBazaar:</strong> Moderate CAC (performance marketing) + conversion optimization via upsells. "Limited Pay" upsell doubles premium (₹1,350 → ₹2,786) with higher commission. Add-ons (spouse cover: +₹567/mo) inflate average transaction value. Scale through paid acquisition.</p>
+        <p><strong>Ditto:</strong> High CAC (advisor call costs ~₹500–1,000) + premium customer required. Economics only work if: customers buy ₹5Cr+ sum assured policies, claims success drives referrals, and lifetime support justifies positioning. This is a relationship business, not a transaction business.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">5 PM Lessons (Distilled)</div>
+        <div class="features-grid">
+          <div class="feature-item">
+            <strong>1. Build on your moat</strong>
+            <span>PhonePe = UPI infrastructure. PolicyBazaar = insurer partnerships. Ditto = human expertise. Don't copy competitors — double down on your unfair advantage.</span>
+          </div>
+          <div class="feature-item">
+            <strong>2. Friction is a product decision</strong>
+            <span>Ditto deliberately slows users to filter buyers and enable premium service. Sometimes friction increases quality and LTV.</span>
+          </div>
+          <div class="feature-item">
+            <strong>3. Education vs. speed is binary</strong>
+            <span>Choose your customer first, then optimize. Trying to serve everyone well serves no one well.</span>
+          </div>
+          <div class="feature-item">
+            <strong>4. Trust signals vary by audience</strong>
+            <span>Brand (PhonePe), price guarantee (PolicyBazaar), expert credibility (Ditto). Different segments need different proof points.</span>
+          </div>
+          <div class="feature-item">
+            <strong>5. Economics dictate product</strong>
+            <span>PhonePe's volume model needs automation. Ditto's high-CAC needs premium customers. Your unit economics determine your product constraints.</span>
+          </div>
+          <div class="feature-item">
+            <strong>💡 Untapped opportunity</strong>
+            <span>All three show same flow to everyone. First-time buyer vs. switcher need different experiences — personalization layer is missing.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- Modal: Food Label -->
 <div class="modal-overlay" id="modal-food" onclick="closeOnOverlay(event,'food')">
@@ -711,7 +915,7 @@
   <p>© 2026 Lucky Bajaj · Product Manager · Mumbai, India</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); observer.unobserve(e.target); } });
@@ -732,6 +936,13 @@
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
     navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? '#0f0f0f' : ''; });
   });
+
+  // Interactive journey switcher for insurance modal - globally accessible
+  window.showJourney = function(platform) {
+    document.getElementById('journey-phonepe').style.display = platform === 'phonepe' ? 'block' : 'none';
+    document.getElementById('journey-policybazaar').style.display = platform === 'policybazaar' ? 'block' : 'none';
+    document.getElementById('journey-ditto').style.display = platform === 'ditto' ? 'block' : 'none';
+  };
 </script>
 </body>
 </html>
