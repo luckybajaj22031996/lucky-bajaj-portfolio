@@ -424,11 +424,26 @@
           </div>
         </div>
       </div>
+      <div class="project-card reveal" onclick="openModal('mealtime')">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:#fff3e0;">🍽</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-muted);margin-top:6px"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </div>
+        <div class="project-card-body">
+          <div class="project-type">AI · Content · 0→1 · Shipped MVP</div>
+          <div class="project-name">MealTime — Meal-Time Content Curator</div>
+          <div class="project-desc">AI-powered recommendation engine that surfaces 5 things to watch during lunch or dinner — fitted to your taste, meal duration, and mood. Built end-to-end as a PM case study.</div>
+          <div class="project-tags"><span class="project-tag">AI / Claude API</span><span class="project-tag">Recommendation Engine</span><span class="project-tag">User Research</span><span class="project-tag">React</span></div>
+          <div class="project-outcomes">
+            <div class="outcome-item"><div class="outcome-dot"></div>17-person user research → shipped MVP</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>200 curated content pieces · 6 genres</div>
+            <div class="outcome-item"><div class="outcome-dot"></div>Tag-based scoring engine with mood filtering</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-<!-- Modal: Insurance Comparison -->
+</section> Comparison -->
 <div class="modal-overlay" id="modal-insurance" onclick="closeOnOverlay(event,'insurance')">
   <div class="modal-box">
     <div class="modal-header">
@@ -805,6 +820,137 @@
           <li><strong>Phase 3:</strong> Predictive model with confidence intervals per departure window</li>
           <li><strong>Phase 4:</strong> "Best time to leave" push alert with weather & event signal enrichment</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: MealTime -->
+<div class="modal-overlay" id="modal-mealtime" onclick="closeOnOverlay(event,'mealtime')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;">🍽</span>
+        <div>
+          <div style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);">MealTime — Meal-Time Content Curator</div>
+          <div style="font-size:0.77rem;color:var(--ink-muted);margin-top:2px;">AI · Content Recommendation · 0→1 · Shipped MVP</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('mealtime')">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-section">
+        <div class="modal-section-title">Problem Statement</div>
+        <p>Every lunch and dinner is a 10–45 minute lean-back window. People want something good on screen — but every platform they open is optimised for binge sessions, not meal-sized viewing. The result: <strong>endless scrolling, defaulting to the same rewatch, or giving up entirely</strong>.</p>
+        <p>The gap isn't content quality — it's <strong>discovery under time pressure</strong>. Nobody can recall what they'd actually enjoy when the food is getting cold and decision fatigue kicks in. Availability beats preference every time.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">User Research (n=17)</div>
+        <p>Ran a structured survey on LinkedIn targeting urban professionals who eat alone regularly.</p>
+        <div class="metrics-row" style="margin-top:14px;">
+          <div class="metric-box"><div class="metric-num">76%</div><div class="metric-label">Watch during meals 4–5x/week</div></div>
+          <div class="metric-box amber"><div class="metric-num">65%</div><div class="metric-label">Rewatch due to memory gap, not preference</div></div>
+          <div class="metric-box"><div class="metric-num">3.5/5</div><div class="metric-label">Avg. satisfaction with current options</div></div>
+          <div class="metric-box amber"><div class="metric-num">71%</div><div class="metric-label">Spend 1–10 min deciding what to watch</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Personas</div>
+        <div class="personas-grid">
+          <div class="persona-card">
+            <div class="persona-emoji">👨‍💻</div>
+            <div class="persona-name">The Solo Eater</div>
+            <div class="persona-role">Urban professional / WFH, 22–35</div>
+            <div class="persona-need">Eats alone 4–5x/week, wants something good in 20 min, zero effort</div>
+            <div class="persona-pain">"I open YouTube, scroll for 10 minutes, then just rewatch Panchayat again."</div>
+          </div>
+          <div class="persona-card">
+            <div class="persona-emoji">👫</div>
+            <div class="persona-name">The Couple Screen</div>
+            <div class="persona-role">Two people, shared device, evening meals</div>
+            <div class="persona-need">A recommendation neither person vetoes — light, safe, enjoyable</div>
+            <div class="persona-pain">"We spend more time deciding than eating. Someone just tell us what to watch."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Solution & How It Works</div>
+        <p>MealTime is a <strong>recommendation layer</strong> — not a streaming platform. It sits on top of YouTube and existing OTT apps, surfacing exactly 5 picks per meal session.</p>
+        <div class="process-steps" style="margin-top:14px;">
+          <div class="process-step"><div class="step-num">1</div><div><div class="step-title">Taste Profiling</div><div class="step-desc">6 forced-choice cards across genres + 2 preference questions. Takes ~90 seconds. Builds a weighted tag vector.</div></div></div>
+          <div class="process-step"><div class="step-num">2</div><div><div class="step-title">Mood Selection</div><div class="step-desc">4 modes: "For you" (taste-dominant), "Make me laugh", "Make me think", "Just chill". Dynamic weight allocation per mode.</div></div></div>
+          <div class="process-step"><div class="step-num">3</div><div><div class="step-title">Scoring & Ranking</div><div class="step-desc">Each of 200 content pieces scored across 6 dimensions: quality, duration fit, tag match, genre match, novelty, and mood fit.</div></div></div>
+          <div class="process-step"><div class="step-num">4</div><div><div class="step-title">5 Picks + Reason</div><div class="step-desc">Weighted reservoir sampling from top 12 candidates. Each pick comes with a personalised reason line. Optional AI mode (Claude) for even sharper picks.</div></div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Scoring Engine</div>
+        <p>Two-mode dynamic weight system. In <strong>"For you" mode</strong>, taste vector drives 33% of the score — the biggest single factor. When a <strong>specific mood</strong> is active, mood fit jumps to 48% and taste drops to 12%.</p>
+        <p>Mood filtering is <strong>tag-based, not genre-based</strong>. Each content piece is scored 0–100 for mood fit using boost/penalty tag lists. A funny Drama surfaces in laugh mode. A boring Comedy sinks. Genre is a tiebreaker, not a gate.</p>
+        <p>Duration uses an <strong>asymmetric Gaussian curve</strong> — short content is penalised gently (you can watch another one), long content penalised harder (you can't finish it).</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Content Database</div>
+        <div class="features-grid">
+          <div class="feature-item"><strong>😄 Comedy / Sitcom</strong><span>46 pieces — Panchayat, Gullak, The Office, Ted Lasso</span></div>
+          <div class="feature-item"><strong>🎭 Drama</strong><span>30 pieces — Scam 1992, Fleabag, The Bear, Family Man</span></div>
+          <div class="feature-item"><strong>🔍 Documentary</strong><span>27 pieces — Kurzgesagt, Veritasium, Dhruv Rathee, Explained</span></div>
+          <div class="feature-item"><strong>✈️ Travel / Lifestyle</strong><span>27 pieces — Visa2Explore, Yes Theory, Mark Wiens</span></div>
+          <div class="feature-item"><strong>🎤 Stand-up</strong><span>25 pieces — Zakir Khan, Bassi, Mulaney, Hannah Gadsby</span></div>
+          <div class="feature-item"><strong>📺 Reality / Talk</strong><span>20 pieces — Shark Tank India, Hot Ones, Kapil Show</span></div>
+        </div>
+        <p style="margin-top:12px;font-size:0.85rem;color:var(--ink-muted);">Hindi (69) · English (89) · Bilingual (16). All hand-curated with quality scores, tags, and search-intent URLs.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Success Metrics (MVP Targets)</div>
+        <div class="metrics-row">
+          <div class="metric-box"><div class="metric-num">&lt;60s</div><div class="metric-label">Time to first play</div></div>
+          <div class="metric-box amber"><div class="metric-num">&gt;40%</div><div class="metric-label">Recommendation acceptance rate</div></div>
+          <div class="metric-box"><div class="metric-num">&gt;50%</div><div class="metric-label">Return within 3 days</div></div>
+          <div class="metric-box amber"><div class="metric-num">&gt;4/5</div><div class="metric-label">Post-session satisfaction</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Key Design Decisions</div>
+        <p><strong>Tag-based mood filtering over genre exclusion:</strong> The original approach excluded entire genres per mood (all Drama blocked in laugh mode). This created false negatives — funny Dramas hidden, unfunny Travel content showing. Switching to per-item tag scoring fixed accuracy without losing the mood constraint.</p>
+        <p><strong>Dynamic weight allocation:</strong> A user's taste profile and their current mood can conflict. When mood is active, it takes 48% of the score so it can't be overridden by taste. In "For you" mode, taste gets 33%. Clean separation, no contradictions.</p>
+        <p><strong>BYOK AI model:</strong> Claude API adds personalised reason lines and smarter taste profiling. But the app works fully without it — hardcoded scoring is the default. AI is an enhancement layer, not a dependency. Cost: less than ₹1 per session.</p>
+        <p><strong>Search-intent URLs over deep links:</strong> Instead of direct platform links (which break when content moves), every recommendation links to a YouTube or Google search for that specific title. Slightly more friction, zero broken links.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Tech Stack</div>
+        <div class="features-grid">
+          <div class="feature-item"><strong>React (CRA)</strong><span>Frontend, deployed on Vercel</span></div>
+          <div class="feature-item"><strong>Custom Scoring Engine</strong><span>Tag matching, mood filtering, weighted sampling</span></div>
+          <div class="feature-item"><strong>Claude API (Sonnet)</strong><span>BYOK model for AI-powered recommendations</span></div>
+          <div class="feature-item"><strong>localStorage + sessionStorage</strong><span>All data client-side, no server</span></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Roadmap</div>
+        <ul>
+          <li><strong>Phase 1 (Shipped):</strong> Onboarding, scoring engine, mood filtering, feedback loop, AI mode, 200 content pieces</li>
+          <li><strong>Phase 2:</strong> YouTube Data API integration, content thumbnails, couple/shared screen mode</li>
+          <li><strong>Phase 3:</strong> 500+ content pieces, proactive meal-time notifications, native app</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Artifacts</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">
+          <a href="https://mealtime-app-pi.vercel.app" target="_blank" class="btn-secondary" style="font-size:0.82rem;">Live App ↗</a>
+          <a href="https://github.com/luckybajaj22031996/mealtime-app" target="_blank" class="btn-secondary" style="font-size:0.82rem;">GitHub ↗</a>
+          <a href="PRD_MealTime_v2.docx" download class="btn-secondary" style="font-size:0.82rem;">Download PRD ↓</a>
+        </div>
       </div>
     </div>
   </div>
