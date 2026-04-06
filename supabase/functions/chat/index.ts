@@ -328,6 +328,12 @@ Deno.serve(async (req) => {
     if (!groqResponse.ok) {
       const errorText = await groqResponse.text();
       console.error("Groq API error:", groqResponse.status, errorText);
+      if (groqResponse.status === 429) {
+        return new Response(
+          JSON.stringify({ reply: "I'm getting a lot of questions right now! Give me a moment and try again." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
       return new Response(
         JSON.stringify({ reply: "Something went wrong while generating a response. Please try again." }),
         { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
