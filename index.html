@@ -1301,6 +1301,22 @@
     font-size: 0.84rem;
   }
 
+  .chat-suggestions {
+    align-self: flex-start; display: flex; flex-wrap: wrap; gap: 8px;
+    max-width: 100%; margin-top: 2px;
+    animation: scaleIn 0.25s ease;
+  }
+  .chat-suggestion {
+    font-family: var(--sans); font-size: 0.8rem; font-weight: 300;
+    color: var(--ink-soft); background: var(--bg-card);
+    border: 1px solid var(--border); border-radius: 100px;
+    padding: 7px 14px; cursor: pointer; text-align: left; line-height: 1.3;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .chat-suggestion:hover {
+    background: var(--accent-light); border-color: var(--ink-soft); color: var(--ink);
+  }
+
   .chat-typing {
     align-self: flex-start; display: none; gap: 5px;
     padding: 12px 16px; background: var(--accent-light);
@@ -1396,6 +1412,13 @@
   const sendBtn = document.getElementById('chat-send');
   const typingEl = document.getElementById('chat-typing');
 
+  const SUGGESTIONS = [
+    "Why should I hire Lucky?",
+    "What's his most impressive project?",
+    "Give me his career in 30 seconds",
+    "Is Lucky open to new roles?",
+  ];
+
   let history = [];
   let isOpen = false;
   let hasOpened = false;
@@ -1411,6 +1434,7 @@
       if (!hasOpened) {
         hasOpened = true;
         addMessage('bot', "Hey! I'm Lucky's AI assistant. I know an unreasonable amount about his work, projects, and career. Go ahead, test me.");
+        showSuggestions();
       }
       inputEl.focus();
     }
@@ -1433,6 +1457,26 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
+  function showSuggestions() {
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-suggestions';
+    SUGGESTIONS.forEach((q) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chat-suggestion';
+      btn.textContent = q;
+      btn.addEventListener('click', () => sendMessage(q));
+      wrap.appendChild(btn);
+    });
+    messagesEl.insertBefore(wrap, typingEl);
+    scrollToBottom();
+  }
+
+  function removeSuggestions() {
+    const el = messagesEl.querySelector('.chat-suggestions');
+    if (el) el.remove();
+  }
+
   function setTyping(show) {
     typingEl.classList.toggle('visible', show);
     if (show) scrollToBottom();
@@ -1444,10 +1488,11 @@
     inputEl.disabled = val;
   }
 
-  async function sendMessage() {
-    const text = inputEl.value.trim();
+  async function sendMessage(presetText) {
+    const text = (typeof presetText === 'string' ? presetText : inputEl.value).trim();
     if (!text || isSending) return;
 
+    removeSuggestions();
     addMessage('user', text);
     inputEl.value = '';
     history.push({ role: 'user', content: text });
