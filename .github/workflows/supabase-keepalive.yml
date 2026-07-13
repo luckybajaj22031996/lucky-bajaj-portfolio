@@ -1,0 +1,41 @@
+name: Supabase Keep-Alive
+
+# Prevents the Supabase free-tier project from being paused after 7 days of
+# database inactivity. Runs a real SELECT against public.keepalive every 2 days
+# (well inside the 7-day window, so a missed run still leaves plenty of margin).
+#
+# NOTE: GitHub disables scheduled workflows if the repo has had no activity for
+# 60 days. If this repo goes untouched that long, re-enable the workflow from
+# the Actions tab (or push any commit). See the alternatives noted in the repo
+# discussion if you want a truly zero-maintenance option.
+
+on:
+  schedule:
+    - cron: "17 6 */2 * *" # every 2 days at 06:17 UTC
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase database
+        env:
+          # These are the public project URL + anon key (already shipped in the
+          # frontend, safe to keep here). RLS restricts the anon role to a
+          # read-only SELECT on the keepalive table.
+          SUPABASE_URL: https://dtxzakiijjuwcayjbxey.supabase.co
+          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0eHpha2lpamp1d2NheWpieGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTM1NDksImV4cCI6MjA5MTA2OTU0OX0.KE0CFGmu1UtyrjUdHlU1swmHi679iLn9d_fgaG_M-aQ
+        run: |
+          echo "Pinging $SUPABASE_URL ..."
+          http_code=$(curl -sS -o /tmp/resp.json -w "%{http_code}" \
+            "$SUPABASE_URL/rest/v1/keepalive?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+          echo "HTTP $http_code"
+          cat /tmp/resp.json || true
+          echo
+          if [ "$http_code" != "200" ]; then
+            echo "::error::Keep-alive ping failed (HTTP $http_code). Project may be paused or the keepalive table/policy is missing."
+            exit 1
+          fi
+          echo "Keep-alive ping succeeded."
