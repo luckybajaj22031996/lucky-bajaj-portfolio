@@ -2,13 +2,13 @@
 
 ## Who is Lucky?
 
-Lucky Bajaj is a Product Manager based in Mumbai, India with 8+ years of experience across insurance, healthcare, US pharma, and enterprise SaaS. He currently works as a Senior Consultant in a Product Management capacity at ThoughtWorks Mumbai, where he leads product strategy for India's first omnichannel insurance sales platform.
+Lucky Bajaj is a Product Manager based in Mumbai, India with 8+ years of experience across insurance, healthcare, US pharma, and enterprise SaaS. He currently works at ThoughtWorks Mumbai as Product Owner for AI/works™, ThoughtWorks' agentic AI development platform that spans the full software development lifecycle. He works at the exploratory end of product — figuring out which problems are worth solving for enterprise engineering teams, tracking how the tech around agentic development keeps shifting, and shaping a view of where the platform goes next. Before AI/works, he was a Senior Consultant leading product strategy for India's first omnichannel insurance sales platform (also at ThoughtWorks).
 
-He positions himself as an AI-native PM — someone who uses AI practically to move faster, think clearer, and build things that would have taken a full team. This isn't a buzzword for him; he has shipped multiple AI-powered products end-to-end.
+He positions himself as an AI-native PM — someone who uses AI practically to move faster, think clearer, and build things that would have taken a full team. This isn't a buzzword for him; he has shipped multiple AI-powered products end-to-end. He sees AI as a core part of how he works — it has made him faster and more effective, and he believes that's becoming a basic expectation for PMs rather than a differentiator; he's simply ahead of that curve.
 
 His formal job title has been Business Analyst through most of his career, but his actual work has consistently been product management — discovery, roadmaps, prioritization, stakeholder alignment, delivery. He's actively making the PM transition formal and targeting product roles at companies where the bar is high.
 
-He holds a B.E. in Information Technology from Government College of Engineering, Karad (2013–2017). He is AWS Certified Cloud Practitioner and holds a Professional Scrum Master I (PSM-1) certification from Scrum.org.
+He holds a B.E. in Information Technology from Government College of Engineering, Karad (2013–2017). He is a Claude Certified Architect (Anthropic, 2026), AWS Certified Cloud Practitioner, and holds a Professional Scrum Master I (PSM-1) certification from Scrum.org.
 
 ## Contact Information
 
@@ -22,12 +22,20 @@ He holds a B.E. in Information Technology from Government College of Engineering
 
 ## Work Experience
 
-### ThoughtWorks — Senior Consultant, Product Management (Jul 2024 – Present)
-Leading end-to-end product management and business analysis for a transformative omnichannel insurance sales platform — India's first — that is changing how insurance products are sold and serviced across multiple channels.
+### ThoughtWorks — Product Owner, AI/works™ (Jun 2026 – Present)
+This is Lucky's current role. He is the Product Owner for AI/works™, ThoughtWorks' agentic AI development platform that spans the full software development lifecycle.
 
 Key responsibilities and impact:
-- Leading product strategy covering the full lifecycle from discovery to delivery for a complex enterprise insurance platform.
-- Managing 2 cross-functional squads (16 members) across web and backend. Owns backlog, sprint planning, and release readiness.
+- Works at the exploratory end of product — problem discovery, market and competitive movement, and how the tech around agentic development is evolving, shaped into a view of where the platform goes next.
+- Figures out which problems are worth solving for enterprise engineering teams in a fast-shifting agentic-development landscape.
+- Translates a rapidly moving market and technology into product direction and roadmap bets for enterprise engineering teams.
+
+### ThoughtWorks — Senior Consultant, Product Management (Jul 2024 – Jun 2026)
+Before AI/works, Lucky led end-to-end product management for a transformative omnichannel insurance sales platform — India's first — that changed how insurance products are sold and serviced across multiple channels.
+
+Key responsibilities and impact:
+- Led product strategy covering the full lifecycle from discovery to delivery for a complex enterprise insurance platform.
+- Managed 2 cross-functional squads (16 members) across web and backend. Owned backlog, sprint planning, and release readiness.
 - Eliminated multiple manual workflows, reducing processing effort by ~30% and cutting policy issuance turnaround from hours to minutes.
 - Partnered with tech leads to define scalable architecture and digital journeys across front-office and backend channels.
 - Conducted product discovery workshops, stakeholder alignment sessions, and requirement walkthroughs across business, technology, and design teams.
@@ -149,16 +157,20 @@ Product Discovery, User Journey Mapping, Roadmap Planning, Backlog Prioritizatio
 JIRA, Confluence, Miro, Figma, Balsamiq, SQL/PostgreSQL, PowerBI, MicroStrategy, Python, AWS, Next.js, Supabase, React, Claude Code, Vercel, GitHub Actions, Cloudflare Workers, n8n, Google Maps API, Meta Ads, MCP (Model Context Protocol).
 
 ### AI & Building
-Lucky is genuinely AI-native — he uses Claude, Claude Code, Gemini, and other AI tools as core parts of his workflow. He's built multiple AI-powered products end-to-end: recommendation engines, computer vision apps, multi-agent pipelines, MCP servers, data collection systems. He's not just a PM who talks about AI; he ships with it.
+Lucky is genuinely AI-native — he uses Claude, Claude Code, Gemini, and other AI tools as core parts of his workflow. He's built multiple AI-powered products end-to-end: recommendation engines, computer vision apps, multi-agent pipelines, MCP servers, data collection systems. He's not just a PM who talks about AI; he ships with it. And he now does it professionally: as Product Owner on ThoughtWorks' agentic AI platform AI/works™, agentic AI is his day job, not just his side projects.
 
 ### Domain Expertise
 Insurance Platforms (omnichannel sales, policy management, distribution models), Healthcare SaaS (appointment scheduling, provider workflows, patient engagement), US Pharma (sales force effectiveness, physician targeting, territory planning with IMS/Veeva/Viewpoint data), B2B Enterprise SaaS, Sports Entertainment, Analytics Platforms.
 
 ### Certifications
+- Claude Certified Architect — Foundations (Anthropic, 2026)
 - AWS Certified Cloud Practitioner
 - Professional Scrum Master I (PSM-1) — Scrum.org
 
 ## Writing & Content
+
+### ThoughtWorks Insights (thoughtworks.com)
+- "Context Decay Is Quietly Killing Your Features Before They Go Live" (Jul 2026) — On how teams lose the knowledge behind their design decisions and trade-offs when releases are delayed. Lucky's argument: the fix isn't documenting more, it's shortening the gap between building a feature and learning from real users. Published on the ThoughtWorks engineering blog — a recent featured piece.
 
 ### Medium (medium.com/@imluckybajaj)
 Lucky writes regularly about PM craft, product thinking, and building things that matter:
@@ -179,7 +191,7 @@ Also open to collaborations, consulting (via Topmate), or exchanging notes on PM
 
 ## Career Narrative
 
-Lucky's career has a powerful arc: management consulting at ZS Associates (analytical rigor, structured problem-solving), product delivery at Quantiphi (team leadership, $1M+ projects), product company experience at Radix Health (healthcare SaaS), and now product strategy at ThoughtWorks (enterprise-scale insurance platform, 16-member team).
+Lucky's career has a powerful arc: management consulting at ZS Associates (analytical rigor, structured problem-solving), product delivery at Quantiphi (team leadership, $1M+ projects), product company experience at Radix Health (healthcare SaaS), enterprise-scale product strategy at ThoughtWorks (India's first omnichannel insurance platform, 16-member team), and now Product Owner on ThoughtWorks' agentic AI platform, AI/works™.
 
 His title has said Business Analyst throughout, but his work has consistently been product management. The gap between title and actual work is something he's actively closing. His portfolio of shipped side projects — built entirely by him using AI tools — demonstrates he doesn't just manage products; he can build them.
 
