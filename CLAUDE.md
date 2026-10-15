@@ -5,14 +5,14 @@ This is Lucky Bajaj's personal portfolio site (static HTML on Vercel) with an AI
 
 ## Architecture
 - Frontend: Static HTML (`index.html`) with a floating chat widget injected via vanilla JS
-- Backend: Supabase Edge Function (`/functions/v1/chat`) that pxies requests to Groq API (Llama 3.3 70B)
+- Backend: Supabase Edge Function (`/functions/v1/chat`) that pxies requests to Groq API (GPT-OSS 120B)
 - Context: `lucky-context.md` contains all knowledge about Lucky — loaded into the system prompt
 - The Groq API key is stored as a Supabase secret, never exposed to the client
 
 ## Tech Stack
 - Frontend: Vanilla HTML/CSS/JS (no framework)
 - Backend: Supabase Edge Functions (Deno runtime)
-- LLM: Groq API with Llama 3.3 70B model (`llama-3.3-70b-versatile`)
+- LLM: Groq API with GPT-OSS 120B model (`openai/gpt-oss-120b`) — Llama 4 Scout was retired by Groq on 2026-07-17
 - Deployment: Vercel (frontend), Supabase (backend Edge Function)
 
 ## Key Files

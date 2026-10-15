@@ -360,9 +360,13 @@ Deno.serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-4-scout-17b-16e-instruct",
+        model: "openai/gpt-oss-120b",
         temperature: 0.7,
-        max_tokens: 500,
+        // gpt-oss is a reasoning model: reasoning tokens count toward this limit,
+        // so keep effort low and leave headroom for the visible reply.
+        reasoning_effort: "low",
+        include_reasoning: false,
+        max_completion_tokens: 1024,
         messages,
       }),
     });
