@@ -1989,8 +1989,9 @@
 <script>
 (function () {
   'use strict';
-  var CHAT_API = 'https://dtxzakiijjuwcayjbxey.supabase.co/functions/v1/chat';
-  var CHAT_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0eHpha2lpamp1d2NheWpieGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0OTM1NDksImV4cCI6MjA5MTA2OTU0OX0.KE0CFGmu1UtyrjUdHlU1swmHi679iLn9d_fgaG_M-aQ';
+  var CHAT_API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? 'https://lucky-bajaj-portfolio.vercel.app/api/chat'
+    : '/api/chat';
 
   var toggle = document.getElementById('chat-toggle');
   var panel = document.getElementById('chat-panel');
@@ -2094,7 +2095,7 @@
 
     fetch(CHAT_API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + CHAT_ANON_KEY },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text, history: history.slice(-10) })
     })
       .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })

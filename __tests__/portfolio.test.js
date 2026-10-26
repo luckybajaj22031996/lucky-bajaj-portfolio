@@ -28,7 +28,7 @@ function extractPortfolioScript(html) {
   let match;
   while ((match = regex.exec(html)) !== null) {
     const block = match[1];
-    if (block.includes('openModal') && block.includes('showJourney')) {
+    if (block.includes('openModal') && block.includes('data-journey')) {
       return block;
     }
   }
@@ -44,6 +44,22 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
 };
 
+// jsdom does not implement matchMedia; stub with non-matching queries
+// (matches: false → reduced-motion off, coarse pointer — matches the
+// plain-JS fallback paths).
+if (typeof window.matchMedia !== 'function') {
+  window.matchMedia = (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener() {},
+    removeListener() {},
+    addEventListener() {},
+    removeEventListener() {},
+    dispatchEvent() { return false; },
+  });
+}
+
 // ============================================================================
 // 1. DOM STRUCTURE TESTS
 // ============================================================================
@@ -55,7 +71,7 @@ describe('DOM Structure', () => {
   // ── Page metadata ──────────────────────────────────────────────────────────
   describe('Page metadata', () => {
     it('has the correct <title>', () => {
-      expect(document.title).toBe('Lucky Bajaj — Product Manager');
+      expect(document.title).toBe('Lucky Bajaj — Product Manager · Agentic AI');
     });
 
     it('has a viewport <meta> tag', () => {
@@ -193,9 +209,12 @@ describe('DOM Structure', () => {
       expect(document.querySelectorAll('.article-card').length).toBeGreaterThan(0);
     });
 
-    it('article cards link to Medium', () => {
+    it('article cards link to external publications', () => {
       document.querySelectorAll('.article-card').forEach((card) => {
-        expect(card.getAttribute('href')).toContain('medium.com');
+        const href = card.getAttribute('href');
+        expect(
+          href.includes('medium.com') || href.includes('thoughtworks.com')
+        ).toBe(true);
       });
     });
   });
@@ -226,15 +245,15 @@ describe('DOM Structure', () => {
     });
 
     it('PhonePe journey panel is visible by default', () => {
-      expect(document.getElementById('journey-phonepe').style.display).toBe('block');
+      expect(document.getElementById('journey-phonepe').classList.contains('show')).toBe(true);
     });
 
     it('PolicyBazaar journey panel is hidden by default', () => {
-      expect(document.getElementById('journey-policybazaar').style.display).toBe('none');
+      expect(document.getElementById('journey-policybazaar').classList.contains('show')).toBe(false);
     });
 
     it('Ditto journey panel is hidden by default', () => {
-      expect(document.getElementById('journey-ditto').style.display).toBe('none');
+      expect(document.getElementById('journey-ditto').classList.contains('show')).toBe(false);
     });
   });
 });
@@ -244,166 +263,135 @@ describe('DOM Structure', () => {
 // ============================================================================
 describe('JavaScript behaviour', () => {
   /**
-   * Evaluate the portfolio script once.
-   * The script attaches event listeners (keydown) and we explicitly assign
-   * openModal / closeModal / closeOnOverlay onto window so they survive
-   * the eval scope and remain accessible from test callbacks.
+   * The redesigned portfolio ships its logic inside an IIFE that runs init()
+   * immediately when the document is ready (jsdom readyState is "complete").
+   * Re-evaluating the script per test attaches fresh per-element listeners to
+   * the current DOM. Document-level handlers accumulate, but every state
+   * mutation they perform is idempotent (class-based), so this is safe.
    */
-  beforeAll(() => {
-    document.documentElement.innerHTML = htmlContent;
+  const rawScript = extractPortfolioScript(htmlContent);
 
-    const rawScript = extractPortfolioScript(htmlContent);
-    // Append explicit window assignments so functions are reachable in tests.
-    const script =
-      rawScript +
-      '\nwindow.openModal = openModal;' +
-      '\nwindow.closeModal = closeModal;' +
-      '\nwindow.closeOnOverlay = closeOnOverlay;\n';
-
-    // eslint-disable-next-line no-eval
-    eval(script);
-  });
-
-  // Reset the DOM to a clean copy before each individual test.
   beforeEach(() => {
     document.documentElement.innerHTML = htmlContent;
+    // eslint-disable-next-line no-eval
+    eval(rawScript);
   });
 
-  // ── openModal / closeModal ─────────────────────────────────────────────────
-  describe('openModal / closeModal', () => {
-    /** Returns the ID suffix of the first modal-overlay in the DOM. */
-    function firstModalId() {
-      return document.querySelector('.modal-overlay').id.replace('modal-', '');
-    }
+  const click = (el) => el.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
-    it('openModal adds the "open" class to the correct modal', () => {
-      const id = firstModalId();
-      window.openModal(id);
-      expect(document.getElementById('modal-' + id).classList.contains('open')).toBe(true);
-    });
-
-    it('openModal locks the body scroll', () => {
-      window.openModal(firstModalId());
+  // ── Modal open/close via card interaction ──────────────────────────────────
+  describe('modal open/close (event delegation)', () => {
+    it('clicking a project card opens its modal and locks body scroll', () => {
+      const card = document.querySelector('[data-modal="mealtime"]');
+      click(card);
+      const overlay = document.getElementById('modal-mealtime');
+      expect(overlay.classList.contains('open')).toBe(true);
       expect(document.body.style.overflow).toBe('hidden');
     });
 
-    it('closeModal removes the "open" class', () => {
-      const id = firstModalId();
-      window.openModal(id);
-      window.closeModal(id);
-      expect(document.getElementById('modal-' + id).classList.contains('open')).toBe(false);
+    it('pressing Enter on a focused card opens the modal', () => {
+      const card = document.querySelector('[data-modal="food"]');
+      card.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      expect(document.getElementById('modal-food').classList.contains('open')).toBe(true);
     });
 
-    it('closeModal restores the body scroll', () => {
-      const id = firstModalId();
-      window.openModal(id);
-      window.closeModal(id);
+    it('clicking the close button closes the modal and restores scroll', () => {
+      const card = document.querySelector('[data-modal="commute"]');
+      click(card);
+      const overlay = document.getElementById('modal-commute');
+      click(overlay.querySelector('[data-modal-close]'));
+      expect(overlay.classList.contains('open')).toBe(false);
       expect(document.body.style.overflow).toBe('');
     });
 
-    it('openModal and closeModal can be called on every modal', () => {
-      document.querySelectorAll('.modal-overlay').forEach((m) => {
-        const id = m.id.replace('modal-', '');
-        window.openModal(id);
-        expect(m.classList.contains('open')).toBe(true);
-        window.closeModal(id);
-        expect(m.classList.contains('open')).toBe(false);
+    it('every modal opens and closes via its card', () => {
+      document.querySelectorAll('[data-modal]').forEach((card) => {
+        click(card);
+        const overlay = document.getElementById('modal-' + card.dataset.modal);
+        expect(overlay.classList.contains('open')).toBe(true);
+        click(overlay.querySelector('[data-modal-close]'));
+        expect(overlay.classList.contains('open')).toBe(false);
       });
     });
   });
 
-  // ── closeOnOverlay ─────────────────────────────────────────────────────────
-  describe('closeOnOverlay', () => {
-    function firstModal() {
-      return document.querySelector('.modal-overlay');
-    }
-
+  // ── Overlay click behaviour ────────────────────────────────────────────────
+  describe('overlay click', () => {
     it('closes the modal when the overlay itself is clicked', () => {
-      const modal = firstModal();
-      const id = modal.id.replace('modal-', '');
-      modal.classList.add('open');
-
-      window.closeOnOverlay({ target: modal, currentTarget: modal }, id);
-
-      expect(modal.classList.contains('open')).toBe(false);
+      const card = document.querySelector('[data-modal="insurance"]');
+      click(card);
+      const overlay = document.getElementById('modal-insurance');
+      click(overlay); // e.target === overlay
+      expect(overlay.classList.contains('open')).toBe(false);
     });
 
-    it('does NOT close the modal when a child element is clicked', () => {
-      const modal = firstModal();
-      const id = modal.id.replace('modal-', '');
-      modal.classList.add('open');
-      const child = modal.querySelector('.modal-close');
-
-      window.closeOnOverlay({ target: child, currentTarget: modal }, id);
-
-      expect(modal.classList.contains('open')).toBe(true);
+    it('does NOT close when a child element is clicked', () => {
+      const card = document.querySelector('[data-modal="insurance"]');
+      click(card);
+      const overlay = document.getElementById('modal-insurance');
+      const child = overlay.querySelector('.modal-section-title');
+      click(child);
+      expect(overlay.classList.contains('open')).toBe(true);
     });
   });
 
-  // ── Escape key ─────────────────────────────────────────────────────────────
+  // ── Escape key ────────────────────────────────────────────────────────────
   describe('Escape key', () => {
     it('closes all open modals when Escape is pressed', () => {
-      document.querySelectorAll('.modal-overlay').forEach((m) =>
-        m.classList.add('open')
-      );
-
+      const card = document.querySelector('[data-modal="mealtime"]');
+      click(card);
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-
-      document.querySelectorAll('.modal-overlay').forEach((m) => {
-        expect(m.classList.contains('open')).toBe(false);
-      });
+      expect(document.getElementById('modal-mealtime').classList.contains('open')).toBe(false);
     });
 
     it('restores body overflow when Escape is pressed', () => {
-      document.querySelectorAll('.modal-overlay').forEach((m) =>
-        m.classList.add('open')
-      );
-      document.body.style.overflow = 'hidden';
-
+      const card = document.querySelector('[data-modal="mealtime"]');
+      click(card);
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-
       expect(document.body.style.overflow).toBe('');
     });
 
     it('does NOT close modals on other key presses', () => {
-      const modal = document.querySelector('.modal-overlay');
-      modal.classList.add('open');
-
+      const card = document.querySelector('[data-modal="mealtime"]');
+      click(card);
+      const overlay = document.getElementById('modal-mealtime');
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
-
-      expect(modal.classList.contains('open')).toBe(true);
+      expect(overlay.classList.contains('open')).toBe(true);
     });
   });
 
-  // ── showJourney ────────────────────────────────────────────────────────────
-  describe('showJourney', () => {
+  // ── Journey switcher ──────────────────────────────────────────────────────
+  describe('journey switcher', () => {
     it.each([
-      ['phonepe', 'journey-phonepe', ['journey-policybazaar', 'journey-ditto']],
-      ['policybazaar', 'journey-policybazaar', ['journey-phonepe', 'journey-ditto']],
-      ['ditto', 'journey-ditto', ['journey-phonepe', 'journey-policybazaar']],
+      ['phonepe', 'journey-phonepe', 'active-p1', ['journey-policybazaar', 'journey-ditto']],
+      ['policybazaar', 'journey-policybazaar', 'active-p2', ['journey-phonepe', 'journey-ditto']],
+      ['ditto', 'journey-ditto', 'active-p3', ['journey-phonepe', 'journey-policybazaar']],
     ])(
-      'showJourney("%s") shows the correct panel and hides the others',
-      (platform, visibleId, hiddenIds) => {
-        window.showJourney(platform);
+      'clicking "%s" shows the right panel, activates the button, hides others',
+      (platform, visibleId, activeClass, hiddenIds) => {
+        const button = document.querySelector('[data-journey="' + platform + '"]');
+        click(button);
 
-        expect(document.getElementById(visibleId).style.display).toBe('block');
+        expect(document.getElementById(visibleId).classList.contains('show')).toBe(true);
+        expect(button.classList.contains(activeClass)).toBe(true);
+        expect(button.getAttribute('aria-pressed')).toBe('true');
         hiddenIds.forEach((id) => {
-          expect(document.getElementById(id).style.display).toBe('none');
+          expect(document.getElementById(id).classList.contains('show')).toBe(false);
         });
       }
     );
 
     it('can switch between platforms multiple times', () => {
-      window.showJourney('phonepe');
-      expect(document.getElementById('journey-phonepe').style.display).toBe('block');
+      click(document.querySelector('[data-journey="phonepe"]'));
+      expect(document.getElementById('journey-phonepe').classList.contains('show')).toBe(true);
 
-      window.showJourney('ditto');
-      expect(document.getElementById('journey-ditto').style.display).toBe('block');
-      expect(document.getElementById('journey-phonepe').style.display).toBe('none');
+      click(document.querySelector('[data-journey="ditto"]'));
+      expect(document.getElementById('journey-ditto').classList.contains('show')).toBe(true);
+      expect(document.getElementById('journey-phonepe').classList.contains('show')).toBe(false);
 
-      window.showJourney('policybazaar');
-      expect(document.getElementById('journey-policybazaar').style.display).toBe('block');
-      expect(document.getElementById('journey-ditto').style.display).toBe('none');
+      click(document.querySelector('[data-journey="policybazaar"]'));
+      expect(document.getElementById('journey-policybazaar').classList.contains('show')).toBe(true);
+      expect(document.getElementById('journey-ditto').classList.contains('show')).toBe(false);
     });
   });
 });
