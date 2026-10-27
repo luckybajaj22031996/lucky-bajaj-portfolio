@@ -184,7 +184,7 @@ Both ThoughtWorks and ZS carry weight: ZS for consulting pedigree and analytical
 - Resume Matcher: AI resume matching tool built with Gemini API.
 - SuuluuTV: Kids' YouTube channel featuring an animated dinosaur character.
 - Personal blog (luckybajaj.com): Migrated from Wix to Eleventy + Decap CMS + Netlify.
-- Claude Skills suite: Built and sold PRD Generator, User Story Writer, Meeting Synthesizer, Market Research skill, Stakeholder Updates skill.
+- PM/BA Claude Skill Pack (open source): 5 Claude skills for PMs & BAs — PRD Generator, User Story Writer, Meeting Synthesizer, Market Research, Stakeholder Updates. Outputs real .docx deliverables; flags gaps as placeholders instead of hallucinating. 54+ GitHub stars, 13+ forks within weeks of launch. GitHub: github.com/luckybajaj22031996/pm-ba-claude-skills. Previously also sold as a Claude Skills suite.
 
 ## Skills & Expertise
 
